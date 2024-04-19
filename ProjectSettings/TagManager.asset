@@ -3,15 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - 3D
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 
@@ -46,4 +47,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2163267479
+    locked: 0
+  - name: Canvas
+    uniqueID: 4030489477
     locked: 0
