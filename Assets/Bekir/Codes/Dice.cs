@@ -13,6 +13,8 @@ public class Dice : MonoBehaviour
 
     [SerializeField] private Rigidbody _rigidBody;
     [SerializeField] private float _outSpeedDT;
+    [SerializeField] private float _fadeOutDelayCount;
+
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private List<Transform> _diceFaces;
     [SerializeField] private DiceSystem _dicesystem;
@@ -69,7 +71,7 @@ public class Dice : MonoBehaviour
     }
     private void Begining()
     {
-        DOVirtual.DelayedCall(0.5f, () =>
+        DOVirtual.DelayedCall(_fadeOutDelayCount, () =>
         {
             transform.DOScale(Vector3.zero, _outSpeedDT * 1.2f);
             _rigidBody.useGravity = false;

@@ -6,6 +6,7 @@ using DG.Tweening;
 public class Player : MonoBehaviour, IMoveable, IDamagable
 {
     [SerializeField] private float _moveSpeed = 10.0f;
+    public List<CollectableDice> CapturedDices = new List<CollectableDice>();
     public float Health;
 
 
@@ -17,6 +18,6 @@ public class Player : MonoBehaviour, IMoveable, IDamagable
 
     public void TakeDamage(float damage)
     {
-        
+
     }
 }
