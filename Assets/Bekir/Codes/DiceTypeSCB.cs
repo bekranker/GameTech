@@ -9,4 +9,5 @@ public class DiceTypeSCB : ScriptableObject
 {
     public string DiceType;
     public Sprite DiceSprite;
+    public int DiceHealth;
 }

@@ -8,8 +8,10 @@ using TMPro;
 public class CollectableDice : MonoBehaviour
 {
 
-    [SerializeField] private float _moveSpeed;
-    public DiceTypeSCB DiceType;
+    [SerializeField] private float _punchForceDT;
+    [SerializeField] private float _punchSpeedDT;
+
+    public DiceTypeSCB DiceType{get; set;}
     private Player _player;
 
     void Start()
@@ -17,17 +19,8 @@ public class CollectableDice : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
     }
 
-    public void Collect()
+    public void HoldMeBegin()
     {
-        transform.DOKill(transform);
-        if (_player.CapturedDices.Count >= 3)
-        {
-            transform.DOShakePosition(0.1f);
-            return;
-        }
-        transform.DOMove(_player.transform.position, _moveSpeed).SetEase(Ease.Linear).OnComplete(() => 
-        {
-            _player.CapturedDices.Add(this);
-        });
+        transform.DOPunchScale(Vector3.one * _punchForceDT, _punchSpeedDT);
     }
 }

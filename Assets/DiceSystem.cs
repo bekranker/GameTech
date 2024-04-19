@@ -9,8 +9,8 @@ public class DiceSystem : MonoBehaviour
 {
     [SerializeField] private List<Dice> _dices;
     [SerializeField] private List<TMP_Text> _diceTexts;
-
-
+    public int SpawnedDiceCount;
+    public int Max, Min;
 
 
     public void RollDice()
