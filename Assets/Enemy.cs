@@ -52,12 +52,8 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
         if (_diceSystem.SpawnedDiceCount < _diceSystem.Max)
         {
             _diceSystem.SpawnedDiceCount++;
-            int randNum = Random.Range(0, 10);
-            if (randNum > 5)
-            {
-                CollectableDice spawnedDiece = Instantiate(_dice, transform.position, Quaternion.identity);
-                spawnedDiece.DiceType = _diceTypes[Random.Range(0, _diceTypes.Count)];
-            }
+            CollectableDice spawnedDiece = Instantiate(_dice, transform.position, Quaternion.identity);
+            spawnedDiece.DiceType = _diceTypes[Random.Range(0, _diceTypes.Count)];
         }
         DeathEffect();
     }

@@ -6,13 +6,12 @@ using UnityEngine;
 
 public class MouseHandler : MonoBehaviour
 {
-    [SerializeField] private LayerMask _playerLayer, _collectableDice, _enemy, _grid;
+    [SerializeField] private LayerMask _playerLayer, _collectableDice, _enemy, _grid, _slot;
     [SerializeField] private Player _player;
     [SerializeField] private LineRenderer _lineRenderr;
     [SerializeField] private DiceSystem _diceSystem;
     [SerializeField] private GameObject _infoCanvas;
     public bool _playerSelected;
-    private Grid _previousGrid;
     private bool _onEnemy;
     [SerializeField] private RollYourDiceHit _rollYourDiceHit;
 
@@ -27,6 +26,7 @@ public class MouseHandler : MonoBehaviour
         SelectPlayer();
         SelectMoveTarget();
         HoverEnemy();
+        HoldCollectableDice();
     }
     void SelectPlayer()
     {
@@ -118,4 +118,30 @@ public class MouseHandler : MonoBehaviour
             _onEnemy = false;
         }
     }
+    void HoldCollectableDice()
+    {
+        if(_playerSelected) return;
+        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
+        RaycastHit2D[] collectableDiceHits = Physics2D.RaycastAll(mousePosition, Vector3.forward, 10f, _collectableDice);
+        RaycastHit2D[] slotHits = Physics2D.RaycastAll(mousePosition, Vector3.forward, 10f, _slot);
+        
+        if (collectableDiceHits.Length > 0)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                collectableDiceHits[0].collider.transform.position = mousePosition;
+            }
+            if (slotHits.Length > 0)
+            {
+                if (Input.GetMouseButtonUp(0))
+                {
+                    print("Change Dice");
+                    slotHits[0].collider.GetComponent<DiceHolder>().ChangeDice(collectableDiceHits[0].collider.GetComponent<CollectableDice>());
+                }
+            }
+        }
+        
+    }
+
 }

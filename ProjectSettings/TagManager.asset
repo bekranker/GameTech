@@ -20,7 +20,7 @@ TagManager:
   - CollectableDice
   - Enemy
   - Grid
-  - 
+  - Slot
   - 
   - 
   - 
@@ -47,6 +47,12 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Dice
+    uniqueID: 2404200511
+    locked: 0
+  - name: Enemies
+    uniqueID: 1754981851
     locked: 0
   - name: Player
     uniqueID: 2163267479

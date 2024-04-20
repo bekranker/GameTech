@@ -262,7 +262,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2131699817
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -719,6 +719,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -754,7 +755,7 @@ MonoBehaviour:
   m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1975
+    m_Bits: 4023
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -817,7 +818,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1975
+    m_Bits: 4023
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -846,6 +847,19 @@ Transform:
   - {fileID: 1705120722}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dca9b4aefdd60f649b5a13102929d52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2114053545}
 --- !u!1 &551625373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,19 +1069,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 604625120}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1705120723}
-        m_TargetAssemblyTypeName: DiceSystem, Assembly-CSharp
-        m_MethodName: RollDice
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &604625120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,7 +1120,7 @@ GameObject:
   - component: {fileID: 617032377}
   - component: {fileID: 617032378}
   - component: {fileID: 617032379}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1251,6 +1253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollectedDice: {fileID: 0}
   DiceHealth: 0
+  _sp: {fileID: 617032377}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,7 +1291,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 0000000097d7f0808fef4ac885633cf0
+  m_ApplyToSortingLayers: 0000000097d7f0808fef4ac885633cf03f304d8fdbe59a68
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1493,7 +1496,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Roll your Dice First
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc20e05b803fb854cb4218307048ced1, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1557,7 +1560,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &805621177
@@ -2359,6 +2362,9 @@ MonoBehaviour:
   _grid:
     serializedVersion: 2
     m_Bits: 1024
+  _slot:
+    serializedVersion: 2
+    m_Bits: 2048
   _player: {fileID: 2114053547}
   _lineRenderr: {fileID: 1694465853}
   _diceSystem: {fileID: 1705120723}
@@ -2553,13 +2559,13 @@ MonoBehaviour:
   - {fileID: 1671880390}
   _diceTexts: []
   SpawnedDiceCount: 0
-  Max: 0
-  Min: 0
-  Movement: 0
-  Combat: 0
-  Defend: 0
+  Max: 3
+  Min: 1
+  Movement: 5
+  Combat: 5
+  Defend: 5
   CanRoll: 1
-  DidRoll: 0
+  DidRoll: 1
 --- !u!1 &1743943480
 GameObject:
   m_ObjectHideFlags: 0
@@ -2911,7 +2917,7 @@ GameObject:
   - component: {fileID: 1867745549}
   - component: {fileID: 1867745550}
   - component: {fileID: 1867745551}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3044,6 +3050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollectedDice: {fileID: 0}
   DiceHealth: 0
+  _sp: {fileID: 1867745549}
 --- !u!1 &1883430327
 GameObject:
   m_ObjectHideFlags: 0
@@ -3149,7 +3156,7 @@ GameObject:
   - component: {fileID: 2044072647}
   - component: {fileID: 2044072648}
   - component: {fileID: 2044072649}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3212,8 +3219,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3282,6 +3289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollectedDice: {fileID: 0}
   DiceHealth: 0
+  _sp: {fileID: 2044072647}
 --- !u!1 &2114053543
 GameObject:
   m_ObjectHideFlags: 0
