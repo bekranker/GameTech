@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using System.Data.Common;
 
 public class Enemy : MonoBehaviour, IMoveable, IDamagable
 {
@@ -19,7 +18,7 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
 
 
 
-    void Awake()
+    void Start()
     {
         _diceSystem = FindAnyObjectByType<DiceSystem>();
         Initialize();

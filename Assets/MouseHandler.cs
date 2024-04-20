@@ -1,69 +1,121 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 public class MouseHandler : MonoBehaviour
 {
     [SerializeField] private LayerMask _playerLayer, _collectableDice, _enemy, _grid;
     [SerializeField] private Player _player;
-
+    [SerializeField] private LineRenderer _lineRenderr;
+    [SerializeField] private DiceSystem _diceSystem;
+    [SerializeField] private GameObject _infoCanvas;
     public bool _playerSelected;
     private Grid _previousGrid;
+    private bool _onEnemy;
+    [SerializeField] private RollYourDiceHit _rollYourDiceHit;
+
+
+    void Start()
+    {
+        _infoCanvas.SetActive(false);
+    }
 
     void Update()
     {
         SelectPlayer();
         SelectMoveTarget();
-        HoverGrid();
+        HoverEnemy();
     }
     void SelectPlayer()
     {
+       
         if (Input.GetMouseButtonDown(0))
         {
+            
             if (Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, 10f, _playerLayer))
             {
-                _playerSelected = true;
+                if(!_diceSystem.DidRoll)
+                {
+                    _rollYourDiceHit.HitText = "Roll Your Dice First";
+                    _rollYourDiceHit.GameHit();
+                    return;
+                }
+                DOTween.Kill(this);
+                DOVirtual.DelayedCall(0.1f, () => _playerSelected = true);
                 _player.SelectMe();
+                _lineRenderr.enabled = true;
+                _infoCanvas.SetActive(true);
             }
         }
         if (Input.GetMouseButtonDown(1))
         {
             _playerSelected = false;
+            _lineRenderr.enabled = false;
+            _infoCanvas.SetActive(false);
         }
     }
     void SelectMoveTarget()
     {
         if (!_playerSelected) return;
-        if (Input.GetMouseButtonDown(0))
+        if (_onEnemy) return;
+
+
+
+        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
+        
+        if (_diceSystem.Movement > 0 && Vector2.Distance(mousePosition, _player.transform.position) <= _diceSystem.Movement)
         {
-            RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, 10f, _grid);
-            if (hits.Length > 0)
+            _lineRenderr.enabled = true;
+            _infoCanvas.SetActive(true);
+            _player.CanWalk = true;
+            _infoCanvas.transform.position = mousePosition + (Vector3.one * .1f);
+            _lineRenderr.SetPosition(0, _player.transform.position);
+            _lineRenderr.SetPosition(1, mousePosition);
+            if (Input.GetMouseButtonDown(0))
             {
-                print("move to" + hits[0].collider.transform.position);
-                _player.Move(hits[0].collider.transform.position);
+                _diceSystem.Movement -= Vector2.Distance(mousePosition, _player.transform.position);
+                _player.Move(mousePosition);
+                _lineRenderr.enabled = false;
             }
+            _infoCanvas.GetComponentInChildren<TMP_Text>().text = Vector2.Distance(mousePosition, _player.transform.position).ToString(".") + "m";
+        }
+        else
+        {
+            _player.CanWalk = false;
+            _lineRenderr.enabled = false;
+            _infoCanvas.SetActive(false);
         }
     }
-    void HoverGrid()
+    void HoverEnemy()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, 10f, _grid);
+        if(!_playerSelected) return;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, 10f, _enemy);
         if (hits.Length > 0)
         {
-            Grid grid = hits[0].collider.GetComponentInParent<Grid>();
-            if (grid != _previousGrid)
+                _onEnemy = true;
+                _infoCanvas.SetActive(true);
+                _lineRenderr.enabled = false;
+                _infoCanvas.transform.position = hits[0].collider.transform.position + (Vector3.up * .5f);
+            if (Vector2.Distance(hits[0].collider.transform.position, _player.transform.position) <= 1)
             {
-                if (_previousGrid != null)
-                    _previousGrid.Exited();
-                grid.Enterted();
-                _previousGrid = grid;
+                _infoCanvas.GetComponentInChildren<TMP_Text>().text =_diceSystem.Combat + "x";
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    hits[0].collider.GetComponent<IDamagable>().TakeDamage(_diceSystem.Combat);
+                }
             }
             else
             {
-                return;
+                _infoCanvas.GetComponentInChildren<TMP_Text>().text = "Come Closer";
             }
         }
-        else{
-            return;
+        else
+        {
+            _onEnemy = false;
         }
     }
 }

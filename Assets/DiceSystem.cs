@@ -11,14 +11,36 @@ public class DiceSystem : MonoBehaviour
     [SerializeField] private List<TMP_Text> _diceTexts;
     public int SpawnedDiceCount;
     public int Max, Min;
+    public float Movement, Combat, Defend;
+    public bool CanRoll, DidRoll;
 
-
-    public void RollDice()
+    public void SetConfigs()
     {
         for (int i = 0; i < _dices.Count; i++)
         {
-            _dices[i].RollMe();            
+            if (_dices[i].DiceType.TypeOfDice == TypeOfDices.Movement)
+            {
+                Movement = _dices[i].DiceNumber;
+            }
+            if (_dices[i].DiceType.TypeOfDice == TypeOfDices.Combnat)
+            {
+                Combat = _dices[i].DiceNumber;
+            }
+            if (_dices[i].DiceType.TypeOfDice == TypeOfDices.Defence)
+            {
+                Defend = _dices[i].DiceNumber;
+            }
         }
+    }
+
+    public void RollDice()
+    {
+        if(!CanRoll) return;
+        for (int i = 0; i < _dices.Count; i++)
+        {
+            _dices[i].RollMe();           
+        }
+        CanRoll = false;
     }
     public void UpdateDiceTexts(int index, int diceNumber)
     {

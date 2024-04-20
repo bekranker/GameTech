@@ -18,6 +18,7 @@ public class Dice : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private List<Transform> _diceFaces;
     [SerializeField] private DiceSystem _dicesystem;
+    public DiceTypeSCB DiceType;
 
     public int DiceNumber;
     private bool _canDiceRay;
@@ -64,6 +65,8 @@ public class Dice : MonoBehaviour
                 }
                 DiceNumber = int.Parse(_diceFaces[i].name);
                 Begining();
+                _dicesystem.DidRoll = true;
+                _dicesystem.SetConfigs();
                 return DiceNumber;
             }
         }

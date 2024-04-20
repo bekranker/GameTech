@@ -7,7 +7,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "DiceTypes", fileName = "CreateDiceType", order = 1)]
 public class DiceTypeSCB : ScriptableObject
 {
-    public string DiceType;
     public Sprite DiceSprite;
     public int DiceHealth;
+    public TypeOfDices TypeOfDice;
+}
+public enum TypeOfDices
+{
+    Movement,
+    Combnat,
+    Defence
 }

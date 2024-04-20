@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5867436081833463945}
@@ -93,8 +93,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5867436081833463945}
-  - component: {fileID: 8242243001304206345}
   - component: {fileID: 2227416775054999181}
+  - component: {fileID: 6828618515701092692}
   m_Layer: 9
   m_Name: Triangle
   m_TagString: Enemy
@@ -118,8 +118,32 @@ Transform:
   - {fileID: 329219292905720698}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &8242243001304206345
-PolygonCollider2D:
+--- !u!114 &2227416775054999181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5550437896570956814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab9d1eef3f702f9448ec6e8c98e36f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemySCB: {fileID: 11400000, guid: 24b78d19420430248b84b7fdcaac9a77, type: 2}
+  _moveSpeed: 10
+  _damage: 0
+  _animation: {fileID: 0}
+  _dice: {fileID: 3024509164524188418, guid: 8fbc8fd9d95089743bfca2937102d477, type: 3}
+  _diceTypes:
+  - {fileID: 11400000, guid: 44c50dcd0cb46734da46cffa27ab1928, type: 2}
+  - {fileID: 11400000, guid: 9810cb7a3de0a2a40b9601310127ab7d, type: 2}
+  _diceSystem: {fileID: 0}
+  _sp: {fileID: 7304455571013856653}
+  _hitColor: {r: 1, g: 0.495283, b: 0.495283, a: 1}
+  Health: 0
+--- !u!61 &6828618515701092692
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -150,43 +174,16 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.14621988}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 0.31}
-      - {x: -0.25, y: -0.14}
-      - {x: 0.25, y: -0.15}
-  m_UseDelaunayMesh: 0
---- !u!114 &2227416775054999181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5550437896570956814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab9d1eef3f702f9448ec6e8c98e36f13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemySCB: {fileID: 11400000, guid: 24b78d19420430248b84b7fdcaac9a77, type: 2}
-  _moveSpeed: 10
-  _damage: 0
-  _animation: {fileID: 0}
-  _dice: {fileID: 0}
-  _diceTypes:
-  - {fileID: 11400000, guid: 44c50dcd0cb46734da46cffa27ab1928, type: 2}
-  - {fileID: 11400000, guid: 9810cb7a3de0a2a40b9601310127ab7d, type: 2}
-  _diceSystem: {fileID: 0}
-  _sp: {fileID: 7304455571013856653}
-  _hitColor: {r: 1, g: 0.495283, b: 0.495283, a: 1}
-  Health: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.8573465}
+  m_EdgeRadius: 0
