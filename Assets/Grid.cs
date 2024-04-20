@@ -11,12 +11,33 @@ public class Grid : MonoBehaviour
     [SerializeField] private float _punchForceDT;
     [SerializeField] private SpriteRenderer _sp;
     private Vector3 _startScale;
+    public List<Grid> Brothers;
+
+    [SerializeField] private List<Transform> _directions;
+    [SerializeField] private LayerMask _grid;
+    public GameObject Slot;
 
     void Start()
     {
         _startScale = transform.localScale;
+        InitializeBrothers();
     }
 
+
+    private void InitializeBrothers()
+    {
+        for (int i = 0; i < _directions.Count; i++)
+        {
+            RaycastHit2D[] hits = Physics2D.RaycastAll(_directions[i].position, _directions[i].up, 1f, _grid);
+            if (hits.Length > 0)
+            {
+                if (hits[0].collider.gameObject != gameObject)
+                {
+                    hits[0].collider.GetComponentInParent<Grid>().Brothers.Add(this);
+                }
+            }
+        }
+    }
     public void Enterted()
     {
         transform.localScale = _startScale;
