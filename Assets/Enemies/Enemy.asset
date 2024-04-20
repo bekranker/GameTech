@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy
   m_EditorClassIdentifier: 
   Health: 5
-  MoveSpeed: 1
+  StepCount: 1
   Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   Damage: 1
+  Speed: 2

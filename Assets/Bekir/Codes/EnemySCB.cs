@@ -8,7 +8,8 @@ using DG.Tweening;
 public class EnemySCB : ScriptableObject
 {
     public float Health;
-    public float MoveSpeed;
+    public float StepCount;
     public Sprite Sprite;
     public float Damage;
+    public float Speed;
 }

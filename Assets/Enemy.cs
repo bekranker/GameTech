@@ -15,18 +15,59 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
     [SerializeField] private SpriteRenderer _sp;
     [SerializeField] private Color _hitColor;
     public float Health;
-
+    private Transform _player;
+    public bool _arrived;
+    private bool MOVE;
+    private Vector3 newPoint;
+    private float _delayCurrent;
+    private float _delay = 1f;
 
 
     void Start()
     {
+        _player = GameObject.Find("Player").transform;
         _diceSystem = FindAnyObjectByType<DiceSystem>();
         Initialize();
     }
-
+    public bool EnemyAction()
+    {
+        if (Vector2.Distance(_player.position, transform.position) < 1.5f)
+        {
+            //attack
+            MOVE = false;
+        }
+        else
+        {
+            _delayCurrent = _delay;
+            MOVE = true;
+            var direction = (_player.position - transform.position).normalized;
+            newPoint = new Vector3(transform.position.x + (direction.x * _enemySCB.StepCount), transform.position.y + (direction.y * _enemySCB.StepCount), 0);
+            return _arrived;
+        }
+        return _arrived;
+    }
+    void Update()
+    {
+        Move(default);
+    }
     public void Move(Vector2 toGo)
     {
+        if(!MOVE) return;
+        Camera.main.GetComponent<CameraFollow>().SetTarget(transform);
+        _delayCurrent -= Time.deltaTime;
+        if (_delayCurrent <= 0)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, newPoint, _enemySCB.Speed * Time.deltaTime);
+            if (transform.position == newPoint)
+            {
+                MOVE = false;
+                _arrived = true;
+                _delayCurrent = _delay;
+            }
+        }
+        //DOTween.Kill(transform);
         
+        //transform.DOMove(newPoint, _enemySCB.Speed).OnComplete(() => MOVE = false);
     }
     
     public void TakeDamage(float damage)
@@ -44,7 +85,7 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
     {
         _sp.sprite = _enemySCB.Sprite;
         Health = _enemySCB.Health;
-        _moveSpeed = _enemySCB.MoveSpeed;
+        _moveSpeed = _enemySCB.StepCount;
         _damage = _enemySCB.Damage;
     }
     private void Death()
