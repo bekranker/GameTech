@@ -8,6 +8,7 @@ TagManager:
   - CollectableDice
   - Enemy
   - Grid
+  - Spawner
   layers:
   - Default
   - TransparentFX
