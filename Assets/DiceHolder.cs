@@ -6,7 +6,7 @@ public class DiceHolder : MonoBehaviour
 {
     public bool Fill;
     public int DiceHealth;
-    [SerializeField] private SpriteRenderer _sp;
+    [SerializeField] public SpriteRenderer _sp;
     [SerializeField] private List<Dice> _dices = new List<Dice>(); // ilk dice Movement, ikinci dice Combnat, ucuncu dice Defence
     public Dice MyDice;
     public bool StarterMovement, StarterCombat, StarterDefence;
