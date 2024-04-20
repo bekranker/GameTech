@@ -2012,15 +2012,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1027378437, guid: 8ee4bd968fd8e9248ad02305a98fbecd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9142857, y: 0.9142857}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &617032378
@@ -2059,8 +2059,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.9142857, y: 0.9142857}
+    newSize: {x: 0.9142857, y: 0.9142857}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -2080,14 +2080,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d18a8b600288d14481323fbf425c9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fill: 0
+  Fill: 1
   DiceHealth: 0
   _sp: {fileID: 617032377}
   _dices:
   - {fileID: 1183384563}
   - {fileID: 194548447}
   - {fileID: 263677357}
-  _myDice: {fileID: 0}
+  MyDice: {fileID: 0}
+  StarterMovement: 0
+  StarterCombat: 1
+  StarterDefence: 0
+  _dicesystem: {fileID: 1705120723}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -4685,18 +4689,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dices:
-  - {fileID: 3469287836709955909}
-  - {fileID: 194548447}
-  - {fileID: 1671880390}
+  - {fileID: 2044072649}
+  - {fileID: 617032379}
+  - {fileID: 1867745551}
   _diceTexts: []
   SpawnedDiceCount: 0
-  Max: 3
-  Min: 1
-  Movement: 5
-  Combat: 5
-  Defend: 5
+  Max: 5
+  Min: 3
+  Movement: 0
+  Combat: 0
+  Defend: 0
   CanRoll: 1
-  DidRoll: 1
+  DidRoll: 0
+  RolledDiceCount: 0
+  DiceCountInHand: 3
 --- !u!1 &1743943480
 GameObject:
   m_ObjectHideFlags: 0
@@ -5407,15 +5413,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -369572245, guid: 8ee4bd968fd8e9248ad02305a98fbecd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9142857, y: 0.9142857}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &1867745550
@@ -5454,8 +5460,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.9142857, y: 0.9142857}
+    newSize: {x: 0.9142857, y: 0.9142857}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -5475,14 +5481,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d18a8b600288d14481323fbf425c9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fill: 0
+  Fill: 1
   DiceHealth: 0
   _sp: {fileID: 1867745549}
   _dices:
   - {fileID: 1671880390}
   - {fileID: 1421877551}
   - {fileID: 455019284}
-  _myDice: {fileID: 0}
+  MyDice: {fileID: 0}
+  StarterMovement: 0
+  StarterCombat: 0
+  StarterDefence: 1
+  _dicesystem: {fileID: 1705120723}
 --- !u!1 &1883430327
 GameObject:
   m_ObjectHideFlags: 0
@@ -5775,15 +5785,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -140808424, guid: 8ee4bd968fd8e9248ad02305a98fbecd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &2044072648
@@ -5822,8 +5832,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.9142857, y: 0.9142857}
+    newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -5843,14 +5853,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d18a8b600288d14481323fbf425c9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fill: 0
+  Fill: 1
   DiceHealth: 0
   _sp: {fileID: 2044072647}
   _dices:
   - {fileID: 1799301461}
   - {fileID: 463628085}
   - {fileID: 1468778465}
-  _myDice: {fileID: 0}
+  MyDice: {fileID: 0}
+  StarterMovement: 1
+  StarterCombat: 0
+  StarterDefence: 0
+  _dicesystem: {fileID: 1705120723}
 --- !u!1 &2114053543
 GameObject:
   m_ObjectHideFlags: 0

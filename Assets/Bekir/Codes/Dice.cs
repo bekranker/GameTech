@@ -49,7 +49,7 @@ public class Dice : MonoBehaviour
             _rigidBody.AddForceAtPosition(_punchForceRB * Mathf.Sign(Random.Range(-1, 1)), transform.localPosition + _punchPos, ForceMode.Impulse);
         }));
     }
-    private int RaycastAll()
+    private void RaycastAll()
     {
         for (int i = 0; i < 6; i++)
         {
@@ -64,18 +64,19 @@ public class Dice : MonoBehaviour
                     }
                 }
                 DiceNumber = int.Parse(_diceFaces[i].name);
-                Begining();
                 _dicesystem.DidRoll = true;
-                _dicesystem.SetConfigs();
-                return DiceNumber;
+                
+                Begining();
+                return;
             }
         }
-        return 0;
     }
     private void Begining()
     {
+        //_dicesystem.SetConfigs();
         DOVirtual.DelayedCall(_fadeOutDelayCount, () =>
         {
+            _dicesystem.RolledDiceCount++;
             transform.DOScale(Vector3.zero, _outSpeedDT * 1.2f);
             _rigidBody.useGravity = false;
         });

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912d52ecf3ab1e04cb998e4d150de794, type: 3}
   m_Name: 3
   m_EditorClassIdentifier: 
-  DiceSprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
+  DiceSprite: {fileID: 1068626293, guid: 8ee4bd968fd8e9248ad02305a98fbecd, type: 3}
   DiceHealth: 2
   TypeOfDice: 2

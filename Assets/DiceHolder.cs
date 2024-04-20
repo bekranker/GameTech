@@ -8,13 +8,36 @@ public class DiceHolder : MonoBehaviour
     public int DiceHealth;
     [SerializeField] private SpriteRenderer _sp;
     [SerializeField] private List<Dice> _dices = new List<Dice>(); // ilk dice Movement, ikinci dice Combnat, ucuncu dice Defence
-    [SerializeField] private Dice _myDice;
+    public Dice MyDice;
+    public bool StarterMovement, StarterCombat, StarterDefence;
+    [SerializeField] private DiceSystem _dicesystem;
+
+    void Start()
+    {
+        if (StarterMovement)
+        {
+            MyDice = _dices[0];
+        }
+        if (StarterCombat)
+        {
+            MyDice = _dices[1];
+        }
+        if (StarterDefence)
+        {
+            MyDice = _dices[2];
+        }
+    }
 
     public void ChangeDice(CollectableDice dice)
     {
         _sp.sprite = dice.DiceType.DiceSprite;
+        if (!Fill)
+        {
+            _dicesystem.DiceCountInHand++;
+        }
         Fill = true;
         DiceHealth = dice.DiceType.DiceHealth;
+        dice.gameObject.SetActive(false);
         SetADice(dice.DiceType);
     }
     private void SetADice(DiceTypeSCB diceTypeSCB)
@@ -22,13 +45,13 @@ public class DiceHolder : MonoBehaviour
         switch (diceTypeSCB.TypeOfDice)
         {
             case TypeOfDices.Movement:
-                _myDice = _dices[0];
+                MyDice = _dices[0];
                 break;
             case TypeOfDices.Combnat:
-                _myDice = _dices[1];
+                MyDice = _dices[1];
                 break;
             case TypeOfDices.Defence:
-                _myDice = _dices[2];
+                MyDice = _dices[2];
                 break;
             default:
                 break;
