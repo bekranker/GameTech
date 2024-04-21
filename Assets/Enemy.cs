@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
             //attack
             Camera.main.GetComponent<CameraFollow>().SetTarget(transform);
             _animation.Play("Combat");
-            _player.GetComponent<IDamagable>().TakeDamage(_damage);
+            _player.GetComponent<Player>().TakeDamage(_damage);
             MOVE = false;
         }
         else

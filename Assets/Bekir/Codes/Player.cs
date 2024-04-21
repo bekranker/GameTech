@@ -12,6 +12,7 @@ public class Player : MonoBehaviour, IMoveable, IDamagable
     [SerializeField] private Slider HealthBar;
     [SerializeField] public Slider ShieldBar;
     [SerializeField] private GameObject _damageParticle, _shieldDamageParticle;
+    [SerializeField] private GameObject _restartScreen;
     public float Health;
     public float Shield;
     public bool CanWalk;
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour, IMoveable, IDamagable
             if (Health - damage <= 0)
             {
                 //Die
+                _restartScreen.SetActive(true);
                 return;
             }
             Instantiate(_damageParticle, transform.position, Quaternion.identity);
@@ -69,7 +71,7 @@ public class Player : MonoBehaviour, IMoveable, IDamagable
             Instantiate(_shieldDamageParticle, transform.position, Quaternion.identity);
             Shield -= damage;
         }
-        
+        GetComponent<Animator>().Play("Hit");
     }
     public void SelectMe()
     {

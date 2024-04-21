@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 3
   m_EditorClassIdentifier: 
   DiceSprite: {fileID: 1068626293, guid: 8ee4bd968fd8e9248ad02305a98fbecd, type: 3}
-  DiceHealth: 2
+  DiceHealth: 4
   TypeOfDice: 2
