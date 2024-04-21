@@ -80,13 +80,15 @@ public class DiceSystem : MonoBehaviour
         Movement = 0;
         Combat = 0;
         Defend = 0;
+        CreateAudio.PlayAudio("RollDiceSoundEffect", .5f);
         for (int i = 0; i < _dices.Count; i++)
         {
             if (_dices[i] != null && _dices[i].MyDice != null && _dices[i].DiceHealth > 0)
-                _dices[i].MyDice.RollMe();
+            _dices[i].MyDice.RollMe();
         }
         CanRoll = false;
     }
+    
     private void SetDiceSpriteMove(int i, SpriteRenderer spriteRenderer)
     {
         switch (i)
