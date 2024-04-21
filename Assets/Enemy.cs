@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
+
 using DG.Tweening;
 
 public class Enemy : MonoBehaviour, IMoveable, IDamagable
@@ -14,6 +16,7 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
     [SerializeField] private DiceSystem _diceSystem;
     [SerializeField] private SpriteRenderer _sp;
     [SerializeField] private Color _hitColor;
+    [SerializeField] private Slider _healthBar;
     public float Health;
     private Transform _player;
     public bool _arrived;
@@ -25,6 +28,7 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
 
     void Start()
     {
+        Camera.main.GetComponent<CameraFollow>().SetTarget(transform);
         _player = GameObject.Find("Player").transform;
         _diceSystem = FindAnyObjectByType<DiceSystem>();
         Initialize();
@@ -49,6 +53,7 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
     void Update()
     {
         Move(default);
+        _healthBar.value = Health;
     }
     public void Move(Vector2 toGo)
     {
@@ -65,9 +70,6 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
                 _delayCurrent = _delay;
             }
         }
-        //DOTween.Kill(transform);
-        
-        //transform.DOMove(newPoint, _enemySCB.Speed).OnComplete(() => MOVE = false);
     }
     
     public void TakeDamage(float damage)

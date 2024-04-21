@@ -19,11 +19,11 @@ public class DiceSystem : MonoBehaviour
     public float Movement, Combat, Defend;
     public bool CanRoll, DidRoll;
     public int RolledDiceCount, DiceCountInHand;
-    private bool _canSetConfigs;
+    public bool CanSetConfigs;
 
     void Start()
     {
-        _canSetConfigs = true;
+        CanSetConfigs = true;
     }
 
     public void SetConfigs()
@@ -64,10 +64,10 @@ public class DiceSystem : MonoBehaviour
     {
         if (DidRoll && RolledDiceCount == DiceCountInHand)
         {
-            if (_canSetConfigs)
+            if (CanSetConfigs)
             {
                 SetConfigs();
-                _canSetConfigs = false;
+                CanSetConfigs = false;
             }
         }
     }

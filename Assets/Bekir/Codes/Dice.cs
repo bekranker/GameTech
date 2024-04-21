@@ -65,7 +65,6 @@ public class Dice : MonoBehaviour
                 }
                 DiceNumber = int.Parse(_diceFaces[i].name);
                 _dicesystem.DidRoll = true;
-                
                 Begining();
                 return;
             }
@@ -105,6 +104,7 @@ public class Dice : MonoBehaviour
 
         if(collision.gameObject.CompareTag("Ground"))
         {
+            print("cide collide with ground");
             _canDiceRay = false;
         }
     }
@@ -116,6 +116,5 @@ public class Dice : MonoBehaviour
         Gizmos.DrawRay(_diceFaces[3].position, -_diceFaces[3].up * 3);
         Gizmos.DrawRay(_diceFaces[4].position, -_diceFaces[4].up * 3);
         Gizmos.DrawRay(_diceFaces[5].position, -_diceFaces[5].up * 3);
-
     }
 }

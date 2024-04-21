@@ -5,34 +5,48 @@ using UnityEngine;
 public class WaveSystem : MonoBehaviour
 {
     [SerializeField] private List<WaveDataSCB> _waves;
+    [SerializeField] private List<Spawner> _spawners;
     public int CurrentWave;
     public List<Enemy> SpawnedEnemies;
     [SerializeField] private CameraFollow _cameraFollow;
-    private bool _theySpawned;
+    [SerializeField] private Player _player;
+    public bool TheySpawned;
 
 
-    public bool SpawnEnemies()
+    public void SpawnEnemies()
     {
-        if (_waves == null) return false;
-        if (_waves[CurrentWave].Enemies.Count == 0) return false;
+        if (_waves == null) return;
+        if (_waves[CurrentWave].Enemies.Count == 0) return;
 
         StartCoroutine(delayedSpawn());
-        return _theySpawned;
     }
     private IEnumerator delayedSpawn()
     {
         for (int i = 0; i < _waves[CurrentWave].Enemies.Count; i++)
         {
-            yield return new WaitForSeconds(1f);
-            Enemy spawnedEnemy = Instantiate(_waves[CurrentWave].Enemies[i], transform.position, Quaternion.identity);
+            Enemy spawnedEnemy = Instantiate(_waves[CurrentWave].Enemies[i], TakeSpawner(), Quaternion.identity);
             SpawnedEnemies.Add(spawnedEnemy);
-            _cameraFollow.SetTarget(spawnedEnemy.transform);
+            yield return new WaitForSeconds(1f);
         }
-        _theySpawned = true;
+        TheySpawned = true;
+        _cameraFollow.SetTarget(_player.transform);
+    }
+    private Vector3 TakeSpawner()
+    {
+        for (int i = 0; i < _spawners.Count; i++)
+        {
+            if (_spawners[i].Spawned == false)
+            {
+                _spawners[i].Spawned = true;
+                return _spawners[i].transform.position;
+            }
+        }
+        return Vector3.zero;
     }
     public void NextWave()
     {
         CurrentWave++;
+        SpawnedEnemies.ForEach((enemy)=> {enemy._arrived = false;});
     }
 
     public void RemoveEmpties()

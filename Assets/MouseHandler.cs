@@ -14,7 +14,8 @@ public class MouseHandler : MonoBehaviour
     public bool _playerSelected;
     private bool _onEnemy;
     [SerializeField] private RollYourDiceHit _rollYourDiceHit;
-
+    public bool Attacked;
+    private int _playerClickedCount;
 
     void Start()
     {
@@ -30,10 +31,8 @@ public class MouseHandler : MonoBehaviour
     }
     void SelectPlayer()
     {
-       
         if (Input.GetMouseButtonDown(0))
         {
-            
             if (Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, 10f, _playerLayer))
             {
                 if(!_diceSystem.DidRoll)
@@ -47,6 +46,11 @@ public class MouseHandler : MonoBehaviour
                 _player.SelectMe();
                 _lineRenderr.enabled = true;
                 _infoCanvas.SetActive(true);
+                if (_playerClickedCount == 2)
+                {
+                    
+                }
+                _playerClickedCount++;
             }
         }
         if (Input.GetMouseButtonDown(1))
@@ -54,6 +58,7 @@ public class MouseHandler : MonoBehaviour
             _playerSelected = false;
             _lineRenderr.enabled = false;
             _infoCanvas.SetActive(false);
+            _playerClickedCount = 0;
         }
     }
     void SelectMoveTarget()
@@ -79,6 +84,7 @@ public class MouseHandler : MonoBehaviour
                 _diceSystem.Movement -= Vector2.Distance(mousePosition, _player.transform.position);
                 _player.Move(mousePosition);
                 _lineRenderr.enabled = false;
+                
             }
             _infoCanvas.GetComponentInChildren<TMP_Text>().text = Vector2.Distance(mousePosition, _player.transform.position).ToString(".") + "m";
         }
@@ -99,13 +105,15 @@ public class MouseHandler : MonoBehaviour
                 _infoCanvas.SetActive(true);
                 _lineRenderr.enabled = false;
                 _infoCanvas.transform.position = hits[0].collider.transform.position + (Vector3.up * .5f);
-            if (Vector2.Distance(hits[0].collider.transform.position, _player.transform.position) <= 1)
+            if (Vector2.Distance(hits[0].collider.transform.position, _player.transform.position) <= 2)
             {
                 _infoCanvas.GetComponentInChildren<TMP_Text>().text =_diceSystem.Combat + "x";
 
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && !Attacked)
                 {
                     hits[0].collider.GetComponent<IDamagable>().TakeDamage(_diceSystem.Combat);
+                    _player.GetComponent<Animator>().Play("Combat");
+                    Attacked = true;
                 }
             }
             else
