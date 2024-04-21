@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: 3
   m_EditorClassIdentifier: 
   WaveNumber: 3
-  Enemies: []
+  Enemies:
+  - {fileID: 4096041880631427106, guid: 79e59f42088d0294fbd0170893d854b5, type: 3}
+  - {fileID: 4096041880631427106, guid: 79e59f42088d0294fbd0170893d854b5, type: 3}

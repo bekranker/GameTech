@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
     [SerializeField] private SpriteRenderer _sp;
     [SerializeField] private Color _hitColor;
     [SerializeField] private Slider _healthBar;
+    [SerializeField] private GameObject _deadEffect;
     public float Health;
     private Transform _player;
     public bool _arrived;
@@ -35,9 +36,12 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
     }
     public bool EnemyAction()
     {
-        if (Vector2.Distance(_player.position, transform.position) < 1.5f)
+        if (Vector2.Distance(transform.position, _player.position) < 2f)
         {
             //attack
+            Camera.main.GetComponent<CameraFollow>().SetTarget(transform);
+            _animation.Play("Combat");
+            _player.GetComponent<IDamagable>().TakeDamage(_damage);
             MOVE = false;
         }
         else
@@ -46,6 +50,15 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
             MOVE = true;
             var direction = (_player.position - transform.position).normalized;
             newPoint = new Vector3(transform.position.x + (direction.x * _enemySCB.StepCount), transform.position.y + (direction.y * _enemySCB.StepCount), 0);
+            if (transform.position.x > direction.x)
+            {
+                _sp.flipX = true;
+            }
+            else
+            {
+                _sp.flipX = false;
+            }
+            _animation.Play("Walk");
             return _arrived;
         }
         return _arrived;
@@ -68,6 +81,7 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
                 MOVE = false;
                 _arrived = true;
                 _delayCurrent = _delay;
+                _animation.Play("Idle");
             }
         }
     }
@@ -77,9 +91,11 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
         if (Health - damage <= 0)
         {
             Death();
+            Instantiate(_deadEffect, transform.position, Quaternion.identity);
             return;
         }
         Health -= damage;
+       
         HitEffect();
     }
 
@@ -89,6 +105,7 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
         Health = _enemySCB.Health;
         _moveSpeed = _enemySCB.StepCount;
         _damage = _enemySCB.Damage;
+        _healthBar.maxValue = Health;
     }
     private void Death()
     {
@@ -103,6 +120,7 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
     private void HitEffect()
     {
         DOTween.Kill(_sp);
+        _animation.Play("Hit");
         _sp.color = _hitColor;
         _sp.DOColor(Color.white, 0.25f);
     }
@@ -110,5 +128,9 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
     {
         //_animation.SetTrigger("Death");
         Destroy(gameObject);
+    }
+    public void AnimationEnd()
+    {
+        _arrived = true;
     }
 }

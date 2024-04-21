@@ -10,13 +10,16 @@ public class Player : MonoBehaviour, IMoveable, IDamagable
     public List<CollectableDice> CapturedDices = new List<CollectableDice>();
     [SerializeField] private SpriteRenderer _sp;
     [SerializeField] private Slider HealthBar;
-    [SerializeField] private Slider ShieldBar;
-
+    [SerializeField] public Slider ShieldBar;
+    [SerializeField] private GameObject _damageParticle, _shieldDamageParticle;
     public float Health;
     public float Shield;
     public bool CanWalk;
 
-
+    void Start()
+    {
+        ShieldBar.gameObject.SetActive(false);
+    }
     public void Move(Vector2 toGo)
     {
         if(!CanWalk) return;
@@ -24,16 +27,28 @@ public class Player : MonoBehaviour, IMoveable, IDamagable
         {
             GetComponent<Animator>().Play("Idle");
         });
+        if (transform.position.x > toGo.x)
+        {
+            _sp.flipX = true;
+        }
+        else
+        {
+            _sp.flipX = false;
+        }
         GetComponent<Animator>().Play("Walk");
     }
 
     void Update()
     {
         HealthBar.value = Health;
+        ShieldBar.value = Shield;
         if (Shield > 0)
         {
-            ShieldBar.enabled = true;
-            ShieldBar.value = Shield;
+            ShieldBar.gameObject.SetActive(true);
+        }
+        else
+        {
+            ShieldBar.gameObject.SetActive(false);
         }
     }
 
@@ -46,10 +61,12 @@ public class Player : MonoBehaviour, IMoveable, IDamagable
                 //Die
                 return;
             }
+            Instantiate(_damageParticle, transform.position, Quaternion.identity);
             Health -= damage;
         }
         else
         {
+            Instantiate(_shieldDamageParticle, transform.position, Quaternion.identity);
             Shield -= damage;
         }
         

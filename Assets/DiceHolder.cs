@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class DiceHolder : MonoBehaviour
 {
     public bool Fill;
@@ -11,6 +11,8 @@ public class DiceHolder : MonoBehaviour
     public Dice MyDice;
     public bool StarterMovement, StarterCombat, StarterDefence;
     [SerializeField] private DiceSystem _dicesystem;
+    [SerializeField] private DiceHit _diceHit;
+
 
     void Start()
     {
@@ -26,11 +28,13 @@ public class DiceHolder : MonoBehaviour
         {
             MyDice = _dices[2];
         }
+        DiceHealth = MyDice.DiceType.DiceHealth;
     }
 
-    public void ChangeDice(CollectableDice dice)
+    public void ChangeDice(CollectableDice dice, Sprite sprite)
     {
-        _sp.sprite = dice.DiceType.DiceSprite;
+        _sp.color = Color.white;
+        _sp.sprite = sprite;
         if (!Fill)
         {
             _dicesystem.DiceCountInHand++;
@@ -55,6 +59,19 @@ public class DiceHolder : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+    public void DecreaseDiceHealth()
+    {
+        Transform hit = Instantiate(_diceHit, transform.position + Vector3.up, Quaternion.identity).transform;
+        hit.SetParent(transform);
+        DiceHealth--;
+        if (DiceHealth <= 0)
+        {
+            _dicesystem.DiceCountInHand--;
+            MyDice = null;
+            _sp.color = Color.black;
+            Fill = false;
         }
     }
 }

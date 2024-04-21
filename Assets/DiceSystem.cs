@@ -13,7 +13,6 @@ public class DiceSystem : MonoBehaviour
     [SerializeField] private List<Sprite> _diceSpritesCombat;
     [SerializeField] private List<Sprite> _diceSpritesDefence;
 
-
     public int SpawnedDiceCount;
     public int Max, Min;
     public float Movement, Combat, Defend;
@@ -33,6 +32,7 @@ public class DiceSystem : MonoBehaviour
             if (_dices[i] != null && _dices[i].MyDice != null)
             {
                 _dices[i].transform.DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360);
+                
                 if (_dices[i].MyDice.DiceType.TypeOfDice == TypeOfDices.Movement)
                 {
                     SetDiceSpriteMove(_dices[i].MyDice.DiceNumber, _dices[i]._sp);
@@ -67,6 +67,7 @@ public class DiceSystem : MonoBehaviour
             if (CanSetConfigs)
             {
                 SetConfigs();
+            
                 CanSetConfigs = false;
             }
         }
@@ -80,7 +81,7 @@ public class DiceSystem : MonoBehaviour
         Defend = 0;
         for (int i = 0; i < _dices.Count; i++)
         {
-            if (_dices[i] != null && _dices[i].MyDice != null)
+            if (_dices[i] != null && _dices[i].MyDice != null && _dices[i].DiceHealth > 0)
                 _dices[i].MyDice.RollMe();
         }
         CanRoll = false;

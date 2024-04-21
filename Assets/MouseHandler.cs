@@ -28,6 +28,14 @@ public class MouseHandler : MonoBehaviour
         SelectMoveTarget();
         HoverEnemy();
         HoldCollectableDice();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (_diceSystem.DidRoll)
+            {
+                _player.GetComponent<Player>().ShieldBar.gameObject.SetActive(true);
+                _player.GetComponent<Player>().Shield = _diceSystem.Defend;
+            }
+        }
     }
     void SelectPlayer()
     {
@@ -46,11 +54,8 @@ public class MouseHandler : MonoBehaviour
                 _player.SelectMe();
                 _lineRenderr.enabled = true;
                 _infoCanvas.SetActive(true);
-                if (_playerClickedCount == 2)
-                {
-                    
-                }
                 _playerClickedCount++;
+                
             }
         }
         if (Input.GetMouseButtonDown(1))
@@ -79,6 +84,7 @@ public class MouseHandler : MonoBehaviour
             _infoCanvas.transform.position = mousePosition + (Vector3.one * .1f);
             _lineRenderr.SetPosition(0, _player.transform.position);
             _lineRenderr.SetPosition(1, mousePosition);
+            _playerClickedCount = 0;
             if (Input.GetMouseButtonDown(0))
             {
                 _diceSystem.Movement -= Vector2.Distance(mousePosition, _player.transform.position);
@@ -101,10 +107,11 @@ public class MouseHandler : MonoBehaviour
         RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, 10f, _enemy);
         if (hits.Length > 0)
         {
+                _playerClickedCount = 0;
                 _onEnemy = true;
                 _infoCanvas.SetActive(true);
                 _lineRenderr.enabled = false;
-                _infoCanvas.transform.position = hits[0].collider.transform.position + (Vector3.up * .5f);
+                _infoCanvas.transform.position = hits[0].collider.transform.position + (Vector3.up * .7f);
             if (Vector2.Distance(hits[0].collider.transform.position, _player.transform.position) <= 2)
             {
                 _infoCanvas.GetComponentInChildren<TMP_Text>().text =_diceSystem.Combat + "x";
@@ -145,7 +152,7 @@ public class MouseHandler : MonoBehaviour
                 if (Input.GetMouseButtonUp(0))
                 {
                     print("Change Dice");
-                    slotHits[0].collider.GetComponent<DiceHolder>().ChangeDice(collectableDiceHits[0].collider.GetComponent<CollectableDice>());
+                    slotHits[0].collider.GetComponent<DiceHolder>().ChangeDice(collectableDiceHits[0].collider.GetComponent<CollectableDice>(), collectableDiceHits[0].collider.GetComponent<CollectableDice>()._sp.sprite);
                 }
             }
         }

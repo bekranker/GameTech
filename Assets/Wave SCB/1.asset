@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaveNumber: 1
   Enemies:
-  - {fileID: 2227416775054999181, guid: ba7cc26c91af979469152f533aab6509, type: 3}
-  - {fileID: 2227416775054999181, guid: ba7cc26c91af979469152f533aab6509, type: 3}
+  - {fileID: 4332392172916057274, guid: a77592ca4e6af8a42a05929d4d753d3e, type: 3}
+  - {fileID: 4332392172916057274, guid: a77592ca4e6af8a42a05929d4d753d3e, type: 3}

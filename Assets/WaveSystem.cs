@@ -10,6 +10,7 @@ public class WaveSystem : MonoBehaviour
     public List<Enemy> SpawnedEnemies;
     [SerializeField] private CameraFollow _cameraFollow;
     [SerializeField] private Player _player;
+    [SerializeField] private GameObject WinScreen;
     public bool TheySpawned;
 
 
@@ -45,8 +46,17 @@ public class WaveSystem : MonoBehaviour
     }
     public void NextWave()
     {
+        if(CurrentWave + 1 == _waves.Count) 
+        {
+            WinScreen.SetActive(true);
+            return;
+        }
         CurrentWave++;
         SpawnedEnemies.ForEach((enemy)=> {enemy._arrived = false;});
+        for (int i = 0; i < _spawners.Count; i++)
+        {
+            _spawners[i].Spawned = false;
+        }
     }
 
     public void RemoveEmpties()
