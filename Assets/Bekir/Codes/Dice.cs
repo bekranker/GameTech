@@ -47,6 +47,7 @@ public class Dice : MonoBehaviour
             _canCollide = true;
             _rigidBody.useGravity = true;
             _rigidBody.AddForceAtPosition(_punchForceRB * Mathf.Sign(Random.Range(-1, 1)), transform.localPosition + _punchPos, ForceMode.Impulse);
+            _dicesystem.SetMusics();
         }));
     }
     private void RaycastAll()

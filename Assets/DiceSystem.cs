@@ -19,10 +19,12 @@ public class DiceSystem : MonoBehaviour
     public bool CanRoll, DidRoll;
     public int RolledDiceCount, DiceCountInHand;
     public bool CanSetConfigs;
+    private bool _canPlaySound;
 
     void Start()
     {
         CanSetConfigs = true;
+        _canPlaySound = true;
     }
 
     public void SetConfigs()
@@ -54,6 +56,12 @@ public class DiceSystem : MonoBehaviour
             }
         }
     }
+    public void SetMusics()
+    {
+        if (!_canPlaySound) return;
+        CreateAudio.PlayAudio("RollDiceSoundEffect", .5f);
+        _canPlaySound = false;
+    }
     public void SetSprites(int i, SpriteRenderer spriteRenderer)
     {
         SetDiceSpriteCombat(i, spriteRenderer);
@@ -80,13 +88,13 @@ public class DiceSystem : MonoBehaviour
         Movement = 0;
         Combat = 0;
         Defend = 0;
-        CreateAudio.PlayAudio("RollDiceSoundEffect", .5f);
         for (int i = 0; i < _dices.Count; i++)
         {
             if (_dices[i] != null && _dices[i].MyDice != null && _dices[i].DiceHealth > 0)
             _dices[i].MyDice.RollMe();
         }
         CanRoll = false;
+        _canPlaySound = true;
     }
     
     private void SetDiceSpriteMove(int i, SpriteRenderer spriteRenderer)
