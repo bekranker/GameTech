@@ -88,6 +88,7 @@ public class Enemy : MonoBehaviour, IMoveable, IDamagable
     
     public void TakeDamage(float damage)
     {
+        Camera.main.GetComponent<CameraFollow>().ScreenShake();
         if (Health - damage <= 0)
         {
             Death();

@@ -13,6 +13,7 @@ public class Player : MonoBehaviour, IMoveable, IDamagable
     [SerializeField] public Slider ShieldBar;
     [SerializeField] private GameObject _damageParticle, _shieldDamageParticle;
     [SerializeField] private GameObject _restartScreen;
+    [SerializeField] private CameraFollow _cameraFollow;
     public float Health;
     public float Shield;
     public bool CanWalk;
@@ -55,6 +56,7 @@ public class Player : MonoBehaviour, IMoveable, IDamagable
 
     public void TakeDamage(float damage)
     {
+        _cameraFollow.ScreenShake();
         if (Shield <= 0)
         {
             if (Health - damage <= 0)

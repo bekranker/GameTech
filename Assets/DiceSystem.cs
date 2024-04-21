@@ -75,6 +75,7 @@ public class DiceSystem : MonoBehaviour
     public void RollDice()
     {
         if(!CanRoll) return;
+        CreateAudio.PlayAudio("ClickSoundEffect", .1f);
         RolledDiceCount = 0;
         Movement = 0;
         Combat = 0;
